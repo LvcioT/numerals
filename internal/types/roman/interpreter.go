@@ -1,10 +1,17 @@
-package numerals
+package roman
 
-import "strings"
+import (
+	"strings"
 
-// Expression is the interface for our interpreter.
-type Expression interface {
-	Interpret(context *Context)
+	"taurino.com/numerals/tools"
+)
+
+type Interpreter struct {
+}
+
+func (i Interpreter) Interpret(input string) (tools.Context, error) {
+
+	return c, nil
 }
 
 // TerminalExpression implements the Expression interface for a terminal symbol.

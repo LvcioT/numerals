@@ -4,7 +4,8 @@ import (
 	"fmt"
 	"os"
 
-	"taurino.com/numerals/numerals"
+	"taurino.com/numerals/pkg"
+	"taurino.com/numerals/tools"
 )
 
 func main() {
@@ -14,6 +15,16 @@ func main() {
 	}
 
 	roman := os.Args[1]
-	result := numerals.Interpret(roman)
+
+	interpreter, e := pkg.NewInterpreter(tools.Arabic)
+	if e != nil {
+		panic(e)
+	}
+
+	result, e := interpreter.Interpret(roman)
+	if e != nil {
+		panic(e)
+	}
+
 	fmt.Printf("The arabic numeral for %s is %d\n", roman, result)
 }

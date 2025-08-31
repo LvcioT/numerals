@@ -1,17 +1,17 @@
-package numerals_test
+package roman_test
 
 import (
 	"testing"
 
 	"taurino.com/numerals/data"
-	"taurino.com/numerals/numerals"
+	"taurino.com/numerals/roman"
 )
 
 func TestInterpreter(t *testing.T) {
 	t.Run("BaseCases", func(t *testing.T) {
 		for _, tc := range data.BaseCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := numerals.Interpret(tc.From)
+				result := roman.Interpret(tc.From)
 				if uint64(result) != tc.To {
 					t.Errorf("Expected %d, got %d", tc.To, result)
 				}
@@ -22,7 +22,7 @@ func TestInterpreter(t *testing.T) {
 	t.Run("WithVinculumCases", func(t *testing.T) {
 		for _, tc := range data.WithVinculumCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := numerals.Interpret(tc.From)
+				result := roman.Interpret(tc.From)
 				if uint64(result) != tc.To {
 					t.Errorf("Expected %d, got %d", tc.To, result)
 				}
@@ -33,7 +33,7 @@ func TestInterpreter(t *testing.T) {
 	t.Run("ErrorCases", func(t *testing.T) {
 		for _, tc := range data.ErrorCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := numerals.Interpret(tc.From)
+				result := roman.Interpret(tc.From)
 				if uint64(result) != tc.To {
 					t.Errorf("Expected %d, got %d", tc.To, result)
 				}
