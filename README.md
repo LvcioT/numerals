@@ -2,6 +2,12 @@
 
 This package is intended to convert numerals between commonly used ones.
 
-The first implementation will face roman vs arabic, but others could be added in the future.
+The first implementation will face Roman vs. Arabic, but others could be added in the future.
 
-At this moment this is an exmple project, after its first working release it will converted in a library.
+## To Do
+
+- [x] Add Roman vs. Arabic conversions
+- [ ] Add Arabic vs. Roman conversions
+- [ ] Improve command line parameters in the example executable
+- [ ] Converto into a library
+- [ ] Add more numerals conversions

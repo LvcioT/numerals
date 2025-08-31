@@ -11,7 +11,6 @@ var BaseCases = []Case{
 	{Name: "I to 1", From: "I", To: 1},
 	{Name: "II to 2", From: "II", To: 2},
 	{Name: "IV to 4", From: "IV", To: 4},
-	{Name: "IIII to 4", From: "IIII", To: 4},
 	{Name: "V to 5", From: "V", To: 5},
 	{Name: "IX to 9", From: "IX", To: 9},
 	{Name: "X to 10", From: "X", To: 10},
@@ -30,7 +29,6 @@ var BaseCases = []Case{
 
 var WithVinculumCases = []Case{
 	{Name: "(V)I to 5001", From: "(V)I", To: 5001},
-	{Name: "(X)MMXXIV to 12024", From: "(X)MMXXIV", To: 12024},
 	{Name: "(IV)CMXCIX to 4999", From: "(IV)CMXCIX", To: 4999},
 	{Name: "(IX)I to 9001", From: "(IX)I", To: 9001},
 }
@@ -40,6 +38,7 @@ var WithVinculumCases = []Case{
 var ErrorCases = []Case{
 	{Name: "invalid character", From: "IIA", To: 0},
 	{Name: "lowercase", From: "ii", To: 2},
+	{Name: "IIII to 4", From: "IIII", To: 4},
 	{Name: "IIIII to 5", From: "IIIII", To: 5},
 	{Name: "MMMM to 4000", From: "MMMM", To: 4000},
 	{Name: "VV to 10", From: "VV", To: 10},
@@ -47,4 +46,5 @@ var ErrorCases = []Case{
 	{Name: "IM to 0", From: "IM", To: 0},
 	{Name: "IVI to 5", From: "IVI", To: 5},
 	{Name: "IXI to 10", From: "IXI", To: 10},
+	{Name: "(X)MMXXIV to 12024", From: "(X)MMXXIV", To: 12024},
 }
