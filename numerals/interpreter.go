@@ -39,3 +39,56 @@ func (ve *VinculumExpression) Interpret(context *Context) {
 		context.Input = strings.TrimPrefix(context.Input, vinculumRoman)
 	}
 }
+
+func ToArabic(roman string) int {
+	roman = strings.ToUpper(roman)
+	context := &Context{Input: roman}
+
+	expressions := []Expression{
+		&VinculumExpression{Roman: "M", Arabic: 1000},
+		&VinculumExpression{Roman: "CM", Arabic: 900},
+		&VinculumExpression{Roman: "D", Arabic: 500},
+		&VinculumExpression{Roman: "CD", Arabic: 400},
+		&VinculumExpression{Roman: "C", Arabic: 100},
+		&VinculumExpression{Roman: "XC", Arabic: 90},
+		&VinculumExpression{Roman: "L", Arabic: 50},
+		&VinculumExpression{Roman: "XL", Arabic: 40},
+		&VinculumExpression{Roman: "X", Arabic: 10},
+		&VinculumExpression{Roman: "IX", Arabic: 9},
+		&VinculumExpression{Roman: "V", Arabic: 5},
+		&VinculumExpression{Roman: "IV", Arabic: 4},
+		&VinculumExpression{Roman: "I", Arabic: 1},
+		&TerminalExpression{Roman: "M", Arabic: 1000},
+		&TerminalExpression{Roman: "CM", Arabic: 900},
+		&TerminalExpression{Roman: "D", Arabic: 500},
+		&TerminalExpression{Roman: "CD", Arabic: 400},
+		&TerminalExpression{Roman: "C", Arabic: 100},
+		&TerminalExpression{Roman: "XC", Arabic: 90},
+		&TerminalExpression{Roman: "L", Arabic: 50},
+		&TerminalExpression{Roman: "XL", Arabic: 40},
+		&TerminalExpression{Roman: "X", Arabic: 10},
+		&TerminalExpression{Roman: "IX", Arabic: 9},
+		&TerminalExpression{Roman: "V", Arabic: 5},
+		&TerminalExpression{Roman: "IV", Arabic: 4},
+		&TerminalExpression{Roman: "I", Arabic: 1},
+	}
+
+	for _, expression := range expressions {
+		for {
+			tempContext := &Context{Input: context.Input}
+			expression.Interpret(tempContext)
+			if tempContext.Input != context.Input {
+				context.Input = tempContext.Input
+				context.Output += tempContext.Output
+			} else {
+				break
+			}
+		}
+	}
+
+	if context.Input != "" {
+		return 0 // Invalid characters remaining
+	}
+
+	return context.Output
+}
