@@ -40,7 +40,7 @@ func (ve *VinculumExpression) Interpret(context *Context) {
 	}
 }
 
-func ToArabic(roman string) int {
+func Interpret(roman string) int {
 	roman = strings.ToUpper(roman)
 	context := &Context{Input: roman}
 

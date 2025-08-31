@@ -25,6 +25,7 @@ var BaseCases = []Case{
 	{Name: "M to 1000", From: "M", To: 1000},
 	{Name: "MCMLXXXIX to 1989", From: "MCMLXXXIX", To: 1989},
 	{Name: "MMXXIV to 2024", From: "MMXXIV", To: 2024},
+	{Name: "biggest without winculum", From: "MMMCMXCIX", To: 3999},
 }
 
 var WithVinculumCases = []Case{
@@ -40,6 +41,7 @@ var ErrorCases = []Case{
 	{Name: "invalid character", From: "IIA", To: 0},
 	{Name: "lowercase", From: "ii", To: 2},
 	{Name: "IIIII to 5", From: "IIIII", To: 5},
+	{Name: "MMMM to 4000", From: "MMMM", To: 4000},
 	{Name: "VV to 10", From: "VV", To: 10},
 	{Name: "IC to 0", From: "IC", To: 0},
 	{Name: "IM to 0", From: "IM", To: 0},

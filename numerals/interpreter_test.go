@@ -11,7 +11,7 @@ func TestInterpreter(t *testing.T) {
 	t.Run("BaseCases", func(t *testing.T) {
 		for _, tc := range data.BaseCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := numerals.ToArabic(tc.From)
+				result := numerals.Interpret(tc.From)
 				if uint64(result) != tc.To {
 					t.Errorf("Expected %d, got %d", tc.To, result)
 				}
@@ -22,7 +22,7 @@ func TestInterpreter(t *testing.T) {
 	t.Run("WithVinculumCases", func(t *testing.T) {
 		for _, tc := range data.WithVinculumCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := numerals.ToArabic(tc.From)
+				result := numerals.Interpret(tc.From)
 				if uint64(result) != tc.To {
 					t.Errorf("Expected %d, got %d", tc.To, result)
 				}
@@ -33,7 +33,7 @@ func TestInterpreter(t *testing.T) {
 	t.Run("ErrorCases", func(t *testing.T) {
 		for _, tc := range data.ErrorCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := numerals.ToArabic(tc.From)
+				result := numerals.Interpret(tc.From)
 				if uint64(result) != tc.To {
 					t.Errorf("Expected %d, got %d", tc.To, result)
 				}

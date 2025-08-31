@@ -14,6 +14,6 @@ func main() {
 	}
 
 	roman := os.Args[1]
-	result := numerals.ToArabic(roman)
+	result := numerals.Interpret(roman)
 	fmt.Printf("The arabic numeral for %s is %d\n", roman, result)
 }
