@@ -4,16 +4,20 @@ import (
 	"testing"
 
 	"taurino.com/numerals/data"
-	"taurino.com/numerals/roman"
+	"taurino.com/numerals/internal/types/roman"
 )
 
 func TestInterpreter(t *testing.T) {
 	t.Run("BaseCases", func(t *testing.T) {
 		for _, tc := range data.BaseCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := roman.Interpret(tc.From)
-				if uint64(result) != tc.To {
-					t.Errorf("Expected %d, got %d", tc.To, result)
+				result, err := roman.Interpreter{}.Interpret(tc.From)
+				if err != nil {
+					t.Fatalf("Expected no error, but got %v", err)
+				}
+				val, _ := result.GetValue()
+				if val != tc.To {
+					t.Errorf("Expected %d, got %d", tc.To, val)
 				}
 			})
 		}
@@ -22,9 +26,13 @@ func TestInterpreter(t *testing.T) {
 	t.Run("WithVinculumCases", func(t *testing.T) {
 		for _, tc := range data.WithVinculumCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := roman.Interpret(tc.From)
-				if uint64(result) != tc.To {
-					t.Errorf("Expected %d, got %d", tc.To, result)
+				result, err := roman.Interpreter{}.Interpret(tc.From)
+				if err != nil {
+					t.Fatalf("Expected no error, but got %v", err)
+				}
+				val, _ := result.GetValue()
+				if val != tc.To {
+					t.Errorf("Expected %d, got %d", tc.To, val)
 				}
 			})
 		}
@@ -33,9 +41,19 @@ func TestInterpreter(t *testing.T) {
 	t.Run("ErrorCases", func(t *testing.T) {
 		for _, tc := range data.ErrorCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result := roman.Interpret(tc.From)
-				if uint64(result) != tc.To {
-					t.Errorf("Expected %d, got %d", tc.To, result)
+				result, err := roman.Interpreter{}.Interpret(tc.From)
+				if tc.Name == "invalid character" || tc.Name == "lowercase" || tc.Name == "IC to 0" || tc.Name == "IM to 0" {
+					if err == nil {
+						t.Error("Expected an error, but got none")
+					}
+				} else {
+					if err != nil {
+						t.Fatalf("Expected no error, but got %v", err)
+					}
+					val, _ := result.GetValue()
+					if val != tc.To {
+						t.Errorf("Expected %d, got %d", tc.To, val)
+					}
 				}
 			})
 		}

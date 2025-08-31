@@ -26,9 +26,9 @@ func (exp VinculumExpression) Solve(c Context) (Context, error) {
 	}
 
 	plainI := Context{from: c.from[(closingIndex + 1):]}
-	plainO, e := PlainExpression{}.Solve(plainI)
+	plainO, e := ThousandsExpression{}.Solve(plainI)
 	if e != nil {
-		return Context{}, tools.NewWrappedError(plainI.from, VinculumExpression{}, PlainExpression{}, e)
+		return Context{}, tools.NewWrappedError(plainI.from, VinculumExpression{}, ThousandsExpression{}, e)
 	}
 
 	valueLeft, e := tools.MultiplySafe(vinculumO.to, 1000)
@@ -47,9 +47,9 @@ func (exp VinculumExpression) Solve(c Context) (Context, error) {
 }
 
 func delegateToPlain(c Context) (Context, error) {
-	r, e := PlainExpression{}.Solve(c)
+	r, e := ThousandsExpression{}.Solve(c)
 	if e != nil {
-		return Context{}, tools.NewWrappedError(c.from, VinculumExpression{}, PlainExpression{}, e)
+		return Context{}, tools.NewWrappedError(c.from, VinculumExpression{}, ThousandsExpression{}, e)
 	}
 
 	return r, nil

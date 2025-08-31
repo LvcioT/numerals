@@ -18,3 +18,7 @@ func (c Context) GetValue() (uint64, error) {
 func (c Context) GetTo() (string, error) {
 	return strconv.Itoa(int(c.to)), nil
 }
+
+func NexContextFromString(input string) Context {
+	return Context{from: input}
+}
