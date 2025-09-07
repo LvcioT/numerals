@@ -12,6 +12,6 @@ func NewInterpreter(from tools.NumeralType) (tools.Interpreter, error) {
 	case tools.Roman:
 		return roman.Interpreter{}, nil
 	default:
-		return nil, fmt.Errorf("cannot instanciate the proper interpreter from %d to %d", from, to)
+		return nil, fmt.Errorf("cannot instanciate the proper interpreter for %d", from)
 	}
 }

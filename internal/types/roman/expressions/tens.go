@@ -10,20 +10,23 @@ import (
 type TensExpression struct{}
 
 func (exp TensExpression) Solve(c Context) (Context, error) {
-	// must be ordered by length
-	prefixes := map[string]uint64{
-		"LXXX": 80,
-		"XXX":  30,
-		"LXX":  70,
-		"XX":   20,
-		"XL":   40,
-		"LX":   60,
-		"XC":   90,
-		"X":    10,
-		"L":    50,
+	// ordered patterns from highest to lowest
+	patterns := []Context{
+		{from: "LXXX", to: 80},
+		{from: "XXX", to: 30},
+		{from: "LXX", to: 70},
+		{from: "XX", to: 20},
+		{from: "XL", to: 40},
+		{from: "LX", to: 60},
+		{from: "XC", to: 90},
+		{from: "X", to: 10},
+		{from: "L", to: 50},
 	}
 
-	for prefix, value := range prefixes {
+	for _, pattern := range patterns {
+		prefix := pattern.from
+		value := pattern.to
+
 		if strings.HasPrefix(c.from, prefix) {
 			valueLeft := value
 

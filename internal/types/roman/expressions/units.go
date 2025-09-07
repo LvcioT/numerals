@@ -11,19 +11,22 @@ type UnitsExpression struct{}
 
 func (exp UnitsExpression) Solve(c Context) (Context, error) {
 	// must be ordered by length
-	prefixes := map[string]uint64{
-		"VIII": 8,
-		"III":  3,
-		"VII":  7,
-		"II":   2,
-		"IV":   4,
-		"VI":   6,
-		"IX":   9,
-		"I":    1,
-		"V":    5,
+	patterns := []Context{
+		Context{from: "VIII", to: 8},
+		Context{from: "III", to: 3},
+		Context{from: "VII", to: 7},
+		Context{from: "II", to: 2},
+		Context{from: "IV", to: 4},
+		Context{from: "VI", to: 6},
+		Context{from: "IX", to: 9},
+		Context{from: "I", to: 1},
+		Context{from: "V", to: 5},
 	}
 
-	for prefix, value := range prefixes {
+	for _, pattern := range patterns {
+		prefix := pattern.from
+		value := pattern.to
+
 		if strings.HasPrefix(c.from, prefix) {
 			valueLeft := value
 

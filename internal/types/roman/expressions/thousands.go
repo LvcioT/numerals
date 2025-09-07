@@ -11,13 +11,16 @@ type ThousandsExpression struct{}
 
 func (exp ThousandsExpression) Solve(c Context) (Context, error) {
 	// must be ordered by length
-	prefixes := map[string]uint64{
-		"MMM": 3000,
-		"MM":  2000,
-		"M":   1000,
+	patterns := []Context{
+		{from: "MMM", to: 3000},
+		{from: "MM", to: 2000},
+		{from: "M", to: 1000},
 	}
 
-	for prefix, value := range prefixes {
+	for _, pattern := range patterns {
+		prefix := pattern.from
+		value := pattern.to
+
 		if strings.HasPrefix(c.from, prefix) {
 			valueLeft := value
 

@@ -11,19 +11,22 @@ type HundredsExpression struct{}
 
 func (exp HundredsExpression) Solve(c Context) (Context, error) {
 	// must be ordered by length
-	prefixes := map[string]uint64{
-		"DCCC": 800,
-		"CCC":  300,
-		"DCC":  700,
-		"CC":   200,
-		"CD":   400,
-		"DC":   600,
-		"CM":   900,
-		"C":    100,
-		"D":    500,
+	patterns := []Context{
+		{from: "DCCC", to: 800},
+		{from: "CCC", to: 300},
+		{from: "DCC", to: 700},
+		{from: "CC", to: 200},
+		{from: "CD", to: 400},
+		{from: "DC", to: 600},
+		{from: "CM", to: 900},
+		{from: "C", to: 100},
+		{from: "D", to: 500},
 	}
 
-	for prefix, value := range prefixes {
+	for _, pattern := range patterns {
+		prefix := pattern.from
+		value := pattern.to
+
 		if strings.HasPrefix(c.from, prefix) {
 			valueLeft := value
 
