@@ -1,7 +1,6 @@
 package expressions_test
 
 import (
-	"slices"
 	"testing"
 
 	"taurino.com/numerals/internal/types/roman/expressions"
@@ -20,44 +19,10 @@ var zeroFailCases = []internals.TestCase{
 
 func TestZeros(t *testing.T) {
 	t.Run("zero right cases", func(t *testing.T) {
-		for _, tc := range zeroSuccessCases {
-			t.Run(tc.Name, func(t *testing.T) {
-				c := expressions.NexContextFromString(tc.From)
-				result, err := expressions.ZeroExpression{}.Solve(c)
-				if err != nil {
-					t.Fatal(err)
-				}
-
-				value, err := result.GetValue()
-				if err != nil {
-					t.Fatal(err)
-				}
-
-				if value != tc.To {
-					t.Errorf("Expected %d, got %d", tc.To, value)
-				}
-			})
-		}
+		testRightCases(t, expressions.ZeroExpression{}, zeroSuccessCases)
 	})
 
-	failCases := slices.Concat(zeroFailCases, unitsSuccessCases)
-
 	t.Run("zero wrong cases", func(t *testing.T) {
-		for _, tc := range failCases {
-			t.Run(tc.Name, func(t *testing.T) {
-				c := expressions.NexContextFromString(tc.From)
-				result, err := expressions.ZeroExpression{}.Solve(c)
-				if err != nil {
-					return
-				}
-
-				value, err := result.GetValue()
-				if err != nil {
-					t.Fatal(err)
-				}
-
-				t.Errorf("Expected %d to fail but got %d", tc.To, value)
-			})
-		}
+		testWrongCases(t, expressions.ZeroExpression{}, zeroFailCases, unitsSuccessCases)
 	})
 }

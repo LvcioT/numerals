@@ -16,7 +16,7 @@ func main() {
 
 	roman := os.Args[1]
 
-	interpreter, e := pkg.NewInterpreter(tools.Arabic)
+	interpreter, e := pkg.NewInterpreter(tools.Roman)
 	if e != nil {
 		panic(e)
 	}
@@ -26,5 +26,10 @@ func main() {
 		panic(e)
 	}
 
-	fmt.Printf("The arabic numeral for %s is %d\n", roman, result)
+	value, err := result.GetValue()
+	if err != nil {
+		panic(err)
+	}
+
+	fmt.Printf("The arabic numeral for %s is %d\n", roman, value)
 }

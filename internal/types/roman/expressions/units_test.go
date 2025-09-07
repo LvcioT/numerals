@@ -1,7 +1,6 @@
 package expressions_test
 
 import (
-	"slices"
 	"testing"
 
 	"taurino.com/numerals/internal/types/roman/expressions"
@@ -27,47 +26,11 @@ var unitsFailCases = []internals.TestCase{
 }
 
 func TestUnits(t *testing.T) {
-	successCases := slices.Concat(unitsSuccessCases, zeroSuccessCases)
-
 	t.Run("units right cases", func(t *testing.T) {
-		for _, tc := range successCases {
-			t.Run(tc.Name, func(t *testing.T) {
-				c := expressions.NexContextFromString(tc.From)
-				result, err := expressions.UnitsExpression{}.Solve(c)
-				if err != nil {
-					t.Fatal(err)
-				}
-
-				value, err := result.GetValue()
-				if err != nil {
-					t.Fatal(err)
-				}
-
-				if value != tc.To {
-					t.Errorf("Expected %d, got %d", tc.To, value)
-				}
-			})
-		}
+		testRightCases(t, expressions.UnitsExpression{}, unitsSuccessCases, zeroSuccessCases)
 	})
 
-	failCases := slices.Concat(unitsFailCases, zeroFailCases, tensSuccessCases)
-
 	t.Run("units wrong cases", func(t *testing.T) {
-		for _, tc := range failCases {
-			t.Run(tc.Name, func(t *testing.T) {
-				c := expressions.NexContextFromString(tc.From)
-				result, err := expressions.UnitsExpression{}.Solve(c)
-				if err != nil {
-					return
-				}
-
-				value, err := result.GetValue()
-				if err != nil {
-					t.Fatal(err)
-				}
-
-				t.Errorf("Expected %d to fail but got %d", tc.To, value)
-			})
-		}
+		testWrongCases(t, expressions.UnitsExpression{}, unitsFailCases, zeroFailCases, tensSuccessCases)
 	})
 }
