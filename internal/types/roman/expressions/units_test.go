@@ -1,6 +1,7 @@
 package expressions_test
 
 import (
+	"slices"
 	"testing"
 
 	"taurino.com/numerals/internal/types/roman/expressions"
@@ -26,7 +27,7 @@ var unitsFailCases = []internals.TestCase{
 }
 
 func TestUnits(t *testing.T) {
-	successCases := append(unitsSuccessCases, zeroSuccessCases...)
+	successCases := slices.Concat(unitsSuccessCases, zeroSuccessCases)
 
 	t.Run("units right cases", func(t *testing.T) {
 		for _, tc := range successCases {
@@ -49,8 +50,7 @@ func TestUnits(t *testing.T) {
 		}
 	})
 
-	failCases := append(unitsFailCases, zeroFailCases...)
-	failCases = append(failCases, tensSuccessCases...)
+	failCases := slices.Concat(unitsFailCases, zeroFailCases, tensSuccessCases)
 
 	t.Run("units wrong cases", func(t *testing.T) {
 		for _, tc := range failCases {

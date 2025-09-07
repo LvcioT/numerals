@@ -1,6 +1,7 @@
 package expressions_test
 
 import (
+	"slices"
 	"testing"
 
 	"taurino.com/numerals/internal/types/roman/expressions"
@@ -22,7 +23,7 @@ func TestZeros(t *testing.T) {
 		for _, tc := range zeroSuccessCases {
 			t.Run(tc.Name, func(t *testing.T) {
 				c := expressions.NexContextFromString(tc.From)
-				result, err := expressions.UnitsExpression{}.Solve(c)
+				result, err := expressions.ZeroExpression{}.Solve(c)
 				if err != nil {
 					t.Fatal(err)
 				}
@@ -39,13 +40,13 @@ func TestZeros(t *testing.T) {
 		}
 	})
 
-	failCases := append(zeroFailCases, unitsSuccessCases...)
+	failCases := slices.Concat(zeroFailCases, unitsSuccessCases)
 
 	t.Run("zero wrong cases", func(t *testing.T) {
 		for _, tc := range failCases {
 			t.Run(tc.Name, func(t *testing.T) {
 				c := expressions.NexContextFromString(tc.From)
-				result, err := expressions.UnitsExpression{}.Solve(c)
+				result, err := expressions.ZeroExpression{}.Solve(c)
 				if err != nil {
 					return
 				}
