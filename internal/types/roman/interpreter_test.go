@@ -11,13 +11,13 @@ func TestInterpreter(t *testing.T) {
 	t.Run("BaseCases", func(t *testing.T) {
 		for _, tc := range data.BaseCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result, err := roman.Interpreter{}.Interpret(tc.From)
+				result, err := roman.Interpreter{}.Interpret(tc.Roman)
 				if err != nil {
 					t.Fatalf("Expected no error, but got %v", err)
 				}
 				val := result.GetValue()
-				if val != tc.To {
-					t.Errorf("Expected %d, got %d", tc.To, val)
+				if val != tc.Value {
+					t.Errorf("Expected %d, got %d", tc.Value, val)
 				}
 			})
 		}
@@ -26,13 +26,13 @@ func TestInterpreter(t *testing.T) {
 	t.Run("WithVinculumCases", func(t *testing.T) {
 		for _, tc := range data.WithVinculumCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result, err := roman.Interpreter{}.Interpret(tc.From)
+				result, err := roman.Interpreter{}.Interpret(tc.Roman)
 				if err != nil {
 					t.Fatalf("Expected no error, but got %v", err)
 				}
 				val := result.GetValue()
-				if val != tc.To {
-					t.Errorf("Expected %d, got %d", tc.To, val)
+				if val != tc.Value {
+					t.Errorf("Expected %d, got %d", tc.Value, val)
 				}
 			})
 		}
@@ -41,9 +41,9 @@ func TestInterpreter(t *testing.T) {
 	t.Run("ErrorCases", func(t *testing.T) {
 		for _, tc := range data.ErrorCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				_, err := roman.Interpreter{}.Interpret(tc.From)
+				_, err := roman.Interpreter{}.Interpret(tc.Roman)
 				if err == nil {
-					t.Errorf("Expected an error, but got none on '%s'", tc.From)
+					t.Errorf("Expected an error, but got none on '%s'", tc.Roman)
 				}
 			})
 		}
