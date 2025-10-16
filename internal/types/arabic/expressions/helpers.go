@@ -12,7 +12,7 @@ func solveExpression(patterns []Context, c Context, solveSub ExpressionSolve) (C
 		return Context{}, fmt.Errorf("cannot solve '%s': '%w'", cRight.from, err)
 	}
 
-	result, err := NewContextFromConcatenation(cLeft, resultRight)
+	result, err := NewContextFromAdd(cLeft, resultRight)
 	if err != nil {
 		return Context{}, fmt.Errorf("cannot concatenate '%s'+'%s': '%w'", cLeft.from, resultRight.from, err)
 	}

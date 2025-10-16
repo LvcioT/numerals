@@ -1,17 +1,17 @@
-package roman_test
+package arabic_test
 
 import (
 	"testing"
 
 	"taurino.com/numerals/data"
-	"taurino.com/numerals/internal/types/roman"
+	"taurino.com/numerals/internal/types/arabic"
 )
 
 func TestInterpreter(t *testing.T) {
 	t.Run("BaseCases", func(t *testing.T) {
 		for _, tc := range data.BaseCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result, err := roman.Interpreter{}.Interpret(tc.From)
+				result, err := arabic.Interpreter{}.Interpret(tc.From)
 				if err != nil {
 					t.Fatalf("Expected no error, but got %v", err)
 				}
@@ -26,7 +26,7 @@ func TestInterpreter(t *testing.T) {
 	t.Run("WithVinculumCases", func(t *testing.T) {
 		for _, tc := range data.WithVinculumCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				result, err := roman.Interpreter{}.Interpret(tc.From)
+				result, err := arabic.Interpreter{}.Interpret(tc.From)
 				if err != nil {
 					t.Fatalf("Expected no error, but got %v", err)
 				}
@@ -41,7 +41,7 @@ func TestInterpreter(t *testing.T) {
 	t.Run("ErrorCases", func(t *testing.T) {
 		for _, tc := range data.ErrorCases {
 			t.Run(tc.Name, func(t *testing.T) {
-				_, err := roman.Interpreter{}.Interpret(tc.From)
+				_, err := arabic.Interpreter{}.Interpret(tc.From)
 				if err == nil {
 					t.Errorf("Expected an error, but got none on '%s'", tc.From)
 				}

@@ -26,7 +26,7 @@ func SolveVinculum(c Context) (Context, error) {
 		return Context{}, fmt.Errorf("cannot solve '%s': '%w'", cPlain.from, err)
 	}
 
-	result, err := NewContextFromVinculumConcatenation(resultVinculum, resultPlain)
+	result, err := NewContextFromThousandMultiply(resultVinculum, resultPlain)
 	if err != nil {
 		return Context{}, fmt.Errorf("cannot concatenate with vinculum '%s'+'%s': '%w'", resultVinculum.from, resultPlain.from, err)
 	}

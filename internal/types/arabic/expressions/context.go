@@ -11,12 +11,12 @@ import (
 )
 
 type Context struct {
-	from  string
 	value uint64
+	to    string
 }
 
 func (c Context) GetFrom() string {
-	return c.from
+	return strconv.Itoa(int(c.value))
 }
 
 func (c Context) GetValue() uint64 {
@@ -24,7 +24,7 @@ func (c Context) GetValue() uint64 {
 }
 
 func (c Context) GetTo() string {
-	return strconv.Itoa(int(c.value))
+	return c.to
 }
 
 // splitByPrefix splits a Context into two parts by matching prefixes from a provided list of Context patterns.
@@ -68,37 +68,37 @@ func (c Context) splitByVinculum() (Context, Context, error) {
 	return Context{from: c.from[1:closingIndex]}, Context{from: c.from[(closingIndex + 1):]}, nil
 }
 
-func NewContextFromString(input string) Context {
-	return Context{from: input}
+func NewContextFromValue(value uint64) Context {
+	return Context{value: value}
 }
 
-func NewContextFromConcatenation(left Context, right Context) (Context, error) {
+func NewContextFromAdd(left Context, right Context) (Context, error) {
 	value, err := tools.AddSafe(left.value, right.value)
 	if err != nil {
 		return Context{}, fmt.Errorf("value value big for %d+%d: '%w'", left.value, right.value, err)
 	}
 
-	return Context{from: left.from + right.from, value: value}, nil
+	return Context{to: left.to + right.to, value: value}, nil
 }
 
-func NewContextFromVinculumConcatenation(vinculum Context, plain Context) (Context, error) {
-	valueVinculum, err := tools.MultiplySafe(vinculum.value, 1_000)
+func NewContextFromThousandMultiply(thousand Context, base Context) (Context, error) {
+	valueThousand, err := tools.MultiplySafe(thousand.value, 1_000)
 	if err != nil {
-		return Context{}, fmt.Errorf("value value big for %d as vinculum: '%w'", vinculum.value, err)
+		return Context{}, fmt.Errorf("value value big for %d as thousand: '%w'", thousand.value, err)
 	}
 
-	var fromVinculum string
+	var toThousand string
 
-	if vinculum.value > 1 {
-		fromVinculum = fmt.Sprintf("(%s)", vinculum.from)
+	if thousand.value > 1 {
+		toThousand = fmt.Sprintf("(%s)", thousand.from)
 	} else {
-		fromVinculum = ""
+		toThousand = ""
 	}
 
-	leftPlain := Context{
-		from:  fromVinculum,
-		value: valueVinculum,
+	leftBase := Context{
+		to:    toThousand,
+		value: valueThousand,
 	}
 
-	return NewContextFromConcatenation(leftPlain, plain)
+	return NewContextFromAdd(leftBase, base)
 }

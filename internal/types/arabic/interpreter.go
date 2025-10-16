@@ -1,9 +1,10 @@
-package roman
+package arabic
 
 import (
 	"fmt"
+	"strconv"
 
-	"taurino.com/numerals/internal/types/roman/expressions"
+	"taurino.com/numerals/internal/types/arabic/expressions"
 	"taurino.com/numerals/tools"
 )
 
@@ -11,7 +12,12 @@ type Interpreter struct {
 }
 
 func (i Interpreter) Interpret(input string) (tools.Context, error) {
-	c := expressions.NewContextFromString(input)
+	value, err := strconv.ParseUint(input, 10, 64)
+	if err != nil {
+		return nil, fmt.Errorf("cannot interpret '%s' as unsigned integer: '%w", input, err)
+	}
+
+	c := expressions.NewContextFromValue(value)
 	r, e := expressions.SolveVinculum(c)
 	if e != nil {
 		return nil, fmt.Errorf("cannot interpret '%s': '%w", input, e)

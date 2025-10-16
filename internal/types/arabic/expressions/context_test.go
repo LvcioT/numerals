@@ -97,7 +97,7 @@ func TestNewContextFromConcatenation(t *testing.T) {
 	left := Context{from: "X", value: 10}
 	right := Context{from: "IV", value: 4}
 
-	res, err := NewContextFromConcatenation(left, right)
+	res, err := NewContextFromAdd(left, right)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
@@ -113,7 +113,7 @@ func TestNewContextFromConcatenation_Overflow(t *testing.T) {
 	left := Context{from: "A", value: math.MaxUint64}
 	right := Context{from: "B", value: 1}
 
-	_, err := NewContextFromConcatenation(left, right)
+	_, err := NewContextFromAdd(left, right)
 	if err == nil {
 		t.Errorf("expected overflow error, got nil")
 	}
@@ -123,7 +123,7 @@ func TestNewContextFromVinculumConcatenation(t *testing.T) {
 	vinc := Context{from: "X", value: 10} // 10 * 1000 = 10000
 	plain := Context{from: "IV", value: 4}
 
-	res, err := NewContextFromVinculumConcatenation(vinc, plain)
+	res, err := NewContextFromThousandMultiply(vinc, plain)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}
@@ -136,7 +136,7 @@ func TestNewContextFromVinculumConcatenation_Overflow(t *testing.T) {
 	vinc := Context{from: "Z", value: (math.MaxUint64 / 1000) + 1}
 	plain := Context{from: "I", value: 1}
 
-	_, err := NewContextFromVinculumConcatenation(vinc, plain)
+	_, err := NewContextFromThousandMultiply(vinc, plain)
 	if err == nil {
 		t.Errorf("expected overflow error in MultiplySafe, got nil")
 	}
@@ -146,7 +146,7 @@ func TestNewContextFromVinculumConcatenation_ZeroVinculum(t *testing.T) {
 	vinc := Context{from: "", value: 0} // 0 * 1000 = 0 by MultiplySafe contract
 	plain := Context{from: "V", value: 5}
 
-	res, err := NewContextFromVinculumConcatenation(vinc, plain)
+	res, err := NewContextFromThousandMultiply(vinc, plain)
 	if err != nil {
 		t.Errorf("unexpected error: %v", err)
 	}

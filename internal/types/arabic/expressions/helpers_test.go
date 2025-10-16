@@ -4,8 +4,8 @@ import (
 	"slices"
 	"testing"
 
-	"taurino.com/numerals/internal/types/roman/expressions"
-	"taurino.com/numerals/internal/types/roman/internals"
+	"taurino.com/numerals/internal/types/arabic/expressions"
+	"taurino.com/numerals/internal/types/arabic/internals"
 )
 
 func testRightCases(t *testing.T, solveExp expressions.ExpressionSolve, testCases ...[]internals.TestCase) {
