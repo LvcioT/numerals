@@ -10,7 +10,7 @@ import (
 
 func main() {
 	if len(os.Args) != 3 {
-		fmt.Println("Usage: go run . <roman numeral> <arabic numeral>")
+		fmt.Println("Usage: app <roman numeral> <arabic numeral>")
 		return
 	}
 
